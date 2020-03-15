@@ -1,0 +1,7 @@
+{
+  "python.pythonPath": "C:\\Program Files\\Autodesk\\Maya2020\\bin\\mayapy.exe",
+  "python.autoComplete.extraPaths": [
+    "C:/Users/sun/maya_devkit_2020/devkit/other/pymel/extras/completion/py",
+    "E:projects/python/venvs/maya/.venv/Lib/site-packages"
+  ]
+}
