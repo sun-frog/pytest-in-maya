@@ -1,19 +1,13 @@
 import pytest
 
-from PySide2.QtWidgets import (QApplication,
-                               QHBoxLayout,
-                               QDialog, QTextEdit, QPushButton, )
-from PySide2.QtCore import Qt
-from PySide2.QtGui import QFont
-
-
 import pymel.core as pm
 
 
 from rollback_importer import RollbackImporter
 
-from maya_pytest.capture_test_stream import CaptureTestStream, COLOR
-from maya_pytest.decorators import preserve_huds
+from .capture_test_stream import CaptureTestStream, COLOR
+from . import decorators
+from . import ui
 
 ARGS = [
     '-s',
@@ -30,48 +24,16 @@ TARGETS = [
 ]
 
 
-class Window(QDialog):
+class Window(ui.Window):
     def __init__(self):
         super(self.__class__, self).__init__()
 
         self.rollback_importer = RollbackImporter()
 
-        self._create_widgets()
-        self._create_layout()
-        self._create_connections()
-        self._create_style()
-
-    def _create_widgets(self):
-        self.text_edit = QTextEdit()
-        self.text_edit.setReadOnly(True)
-
-        self.test_button = QPushButton('run tests')
-
-    def _create_layout(self):
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-
-        layout.addWidget(self.text_edit)
-        layout.addWidget(self.test_button)
-
     def _create_connections(self):
         self.test_button.clicked.connect(self._run_tests)
 
-    def _create_style(self):
-        self.setWindowFlags(Qt.Window)
-        self.setWindowTitle('Test in Maya')
-        self.setStyleSheet('font-size: 12pt')
-
-        screen = QApplication.primaryScreen()
-        size = screen.size() * 0.66
-        self.resize(size)
-
-        self.text_edit.setStyleSheet('QTextEdit:focus{ border: none; }')
-        font = QFont("Consolas, 'Courier New', monospace")
-        font.setFixedPitch(True)
-        self.text_edit.setFont(font)
-
-    @preserve_huds
+    @decorators.preserve_huds
     def _run_tests(self):
         self._reset()
 
