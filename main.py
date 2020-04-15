@@ -13,7 +13,7 @@ import pymel.core as pm
 from rollback_importer import RollbackImporter
 
 from maya_pytest.capture_test_stream import CaptureTestStream, COLOR
-from maya_pytest.utils import preserve_huds
+from maya_pytest.decorators import preserve_huds
 
 ARGS = [
     '-s',
