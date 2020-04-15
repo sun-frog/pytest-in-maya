@@ -36,7 +36,7 @@ def get_color_text_pattern(colors):
     colors = map(re.escape, CONSOLE_COLORS)
     colors = '|'.join(colors)
 
-    color_text_pattern = re.compile('({})(.*)'.format(colors))
+    color_text_pattern = re.compile('(.*?)({})(.*)'.format(colors))
     return color_text_pattern
 
 
@@ -74,9 +74,12 @@ class CaptureTestStream(io.FileIO):
             match = COLOR_TEXT_PATTERN.match(part)
 
             if match:
-                color = match.group(1)
-                text = match.group(2)
+                pre_text = match.group(1)
+                color = match.group(2)
+                text = match.group(3)
                 color = CONSOLE_COLORS[color]
+
+                self._insert_text(pre_text)
                 self._insert_text(text, color)
             else:
                 self._insert_text(part)
