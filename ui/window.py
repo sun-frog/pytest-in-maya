@@ -7,8 +7,9 @@ from PySide2.QtGui import QFont
 
 
 class Window(QDialog):
-    def __init__(self):
-        super(QDialog, self).__init__()
+
+    def __init__(self, parent=None):
+        super(Window, self).__init__(parent)
 
         self._create_widgets()
         self._create_layout()

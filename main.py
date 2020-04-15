@@ -1,6 +1,10 @@
 import pytest
 
+# imports that bug out with RollbackImporter.uninstall()
+# must be imported before creating Window
+# because of Window.rollback_importer
 import pymel.core as pm
+import maya.utils  # pylint: disable=unused-import
 
 
 from rollback_importer import RollbackImporter
@@ -26,9 +30,11 @@ TARGETS = [
 
 class Window(ui.Window):
     def __init__(self):
-        super(self.__class__, self).__init__()
+        super(Window, self).__init__()
 
         self.rollback_importer = RollbackImporter()
+
+        self._create_connections()
 
     def _create_connections(self):
         self.test_button.clicked.connect(self._run_tests)
@@ -49,7 +55,7 @@ class Window(ui.Window):
         self.text_edit.setTextColor(COLOR.NORMAL)
 
     def closeEvent(self, event):
-        super(self.__class__, self).closeEvent(event)
+        super(Window, self).closeEvent(event)
 
         self.rollback_importer.uninstall()
 
