@@ -48,7 +48,7 @@ class Window(ui.Window):
         self.text_edit.clear()
         self.text_edit.setTextColor(COLOR.NORMAL)
 
-    def closeEvent(self, event):  # pylint: disable=arguments-differ
+    def closeEvent(self, event):
         super(self.__class__, self).closeEvent(event)
 
         self.rollback_importer.uninstall()
