@@ -95,25 +95,19 @@ class CaptureTestStream(io.FileIO):
         self._reset_text_color()
 
     def _set_text_color(self, text):
-        if text == 'PASSED' or text == '.':
+        if is_passed(text):
             self.text_edit.setTextColor(COLOR.SUCCESS)
 
-        elif text == 'FAILED' or text == 'F':
+        elif is_failed(text):
             self.text_edit.setTextColor(COLOR.FAIL)
 
-        elif text.startswith('===') and'failed' in text:
-            self.text_edit.setTextColor(COLOR.FAIL)
-
-        elif text.startswith('___') or text.endswith('.py'):
-            self.text_edit.setTextColor(COLOR.FAIL)
-
-        elif text == 'ERROR' or text == 'E' or text.startswith('E '):
+        elif is_error(text):
             self.text_edit.setTextColor(COLOR.ERROR)
 
-        elif text == 'SKIPPED' or text == 's':
+        elif is_skipped(text):
             self.text_edit.setTextColor(COLOR.SKIP)
 
-        elif text == 'XFAIL' or text == 'x':
+        elif is_xfail(text):
             self.text_edit.setTextColor(COLOR.XFAIL)
 
     def _scroll_to_bottom(self):
@@ -139,3 +133,30 @@ class CaptureTestStream(io.FileIO):
 
         for line, text in enumerate(self.log):
             print 'line:', line, repr(text)
+
+
+def is_passed(text):
+    return text == 'PASSED' or text == '.'
+
+
+def is_failed(text):
+    if text == 'FAILED' or text == 'F':
+        return True
+    elif text.startswith('===') and'failed' in text:
+        return True
+    elif text.startswith('___') or text.endswith('.py'):
+        return True
+
+    return False
+
+
+def is_error(text):
+    return text == 'ERROR' or text == 'E' or text.startswith('E ')
+
+
+def is_skipped(text):
+    return text == 'SKIPPED' or text == 's'
+
+
+def is_xfail(text):
+    return text == 'XFAIL' or text == 'x'
