@@ -64,7 +64,11 @@ WINDOW = None
 
 
 def main():
-    """Entry point of the module. If an instance of `Window` exists, delete it and create a new one."""
+    """
+    Entry point of the module.
+    If an instance of `Window` exists,
+    delete it and create a new one.
+    """
     global WINDOW
 
     if WINDOW:
