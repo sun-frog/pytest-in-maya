@@ -60,5 +60,18 @@ class Window(ui.Window):
         self.rollback_importer.uninstall()
 
 
-WINDOW = Window()
-WINDOW.showMaximized()
+WINDOW = None
+
+
+def main():
+    """Entry point of the module. If an instance of `Window` exists, delete it and create a new one."""
+    global WINDOW
+
+    if WINDOW:
+        WINDOW.close()
+        WINDOW.deleteLater()
+
+    WINDOW = Window()
+    WINDOW.showMaximized()
+
+    return WINDOW

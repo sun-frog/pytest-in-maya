@@ -136,8 +136,8 @@ disable=print-statement,
         comprehension-escape,
         assignment-from-no-return,
         bare-except,
-        bad-super-call,
         arguments-differ,
+        global-statement,
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
