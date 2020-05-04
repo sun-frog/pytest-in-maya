@@ -86,10 +86,10 @@ class CaptureTestStream(io.FileIO):
 
     def _insert_text(self, text, color=None):
 
-        if not color:
-            self._set_text_color(text)
-        else:
+        if color:
             self.text_edit.setTextColor(color)
+        else:
+            self._set_text_color(text)
 
         self.text_edit.insertPlainText(text)
         self._reset_text_color()
