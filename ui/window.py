@@ -17,7 +17,6 @@ class Window(QDialog):
 
     def _create_widgets(self):
         self.text_edit = QTextEdit()
-        self.text_edit.setReadOnly(True)
 
         self.test_button = QPushButton('run tests')
 
@@ -37,7 +36,9 @@ class Window(QDialog):
         size = screen.size() * 0.66
         self.resize(size)
 
+        self.text_edit.setReadOnly(True)
         self.text_edit.setStyleSheet('QTextEdit:focus{ border: none; }')
+
         font = QFont("Consolas, 'Courier New', monospace")
         font.setFixedPitch(True)
         self.text_edit.setFont(font)
